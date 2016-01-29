@@ -44,7 +44,7 @@ public class AStarSearch {
                 numNodes.getAndIncrement();
                 double tmpGScore = currentGScore + problem.getDist(node, neighbour);
                 //System.out.println(" neighbour " + neighbour.getCurrent().getName());
-               // System.out.println("  g score: " + tmpGScore);
+                // System.out.println("  g score: " + tmpGScore);
                 if (neighbour.getState() == Node.STATE_CLOSED) {
                     System.out.println("should not reach... closed !");
                     continue;

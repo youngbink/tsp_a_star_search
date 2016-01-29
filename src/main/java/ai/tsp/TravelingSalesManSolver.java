@@ -14,14 +14,16 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class TravelingSalesManSolver {
     public static void main(String ...args) {
-        long start = System.currentTimeMillis();
+
         TravelingSalesManSolver solver = new TravelingSalesManSolver();
         for (int i = 1; i <= 16; i++) {
+            long start = System.currentTimeMillis();
             solver.processFilesInDir(String.valueOf(i));
+            long end = System.currentTimeMillis();
+            System.out.println("Time taken : " + (((end - start) * 1.0) / 1000));
         }
 
-        long end = System.currentTimeMillis();
-        System.out.println("Time taken : " + (((end - start) * 1.0) / 1000));
+
 
         //solver.processFile("1/instance_1.txt");
 
