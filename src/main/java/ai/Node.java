@@ -85,6 +85,16 @@ public class Node {
         return 0.0f;
     }
 
+    public double getNearestDistFromUnvisited(City city, Set<City> seen) {
+        Map<City, Double> map = city.getdMap();
+        for (Map.Entry<City, Double> entry : map.entrySet())
+        {
+            if (unvisited.contains(entry.getKey()) && !seen.contains(entry.getKey())) {
+                return entry.getValue();
+            }
+        }
+        return 0.0f;
+    }
     public List<City> getPath() {
         return path;
     }

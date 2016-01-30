@@ -113,26 +113,49 @@ public class TravelingSalesManProblem implements SearchProblem {
 
     private double heuristic(Node neighbour) {
         if (neighbour.getUnvisited().size() == 0) {
+            //System.out.println(" No more visited " + neighbour.getCurrent().getName());
+            //System.out.println();
             if (neighbour.getCurrent() == firstCity) {
                 return 0.0f;
             }
 
             return neighbour.getCurrent().getdMap().get(firstCity);
         } else if (neighbour.getUnvisited().size() == 1) {
-            return neighbour.getCurrent().getdMap().get(firstCity);
+           // System.out.println(" 1 left " + neighbour.getCurrent().getName());
+            //neighbour.printPath();
+            List<City> lists = new ArrayList<>(neighbour.getUnvisited());
+            City lastCity = lists.get(0);
+            //System.out.println("last city " + lastCity.getName());
+            return neighbour.getCurrent().getdMap().get(lastCity) +
+                    lastCity.getdMap().get(firstCity);
         }
 
+
+
         double dist1 = neighbour.getNearestDistFromUnvisited(neighbour.getCurrent());
+        /*
+        if (neighbour.getUnvisited().size() == 2 && neighbour.getCurrent().getName().equals("E"))
+            System.out.println("here");
+            */
         double dist2 = calculateMST(neighbour);
         double dist3 = neighbour.getNearestDistFromUnvisited(firstCity);
+        /*
+        if (neighbour.getUnvisited().size() == 2 && neighbour.getCurrent().getName().equals("E")) {
+            //System.out.println(" 2 left " + neighbour.getCurrent().getName());
+            neighbour.printPath();
+            //System.out.println("mst : " + dist2);
+            //System.out.println("h :" + (dist1 + dist2 + dist3));
+        }*/
         return dist1 + dist2 + dist3;
     }
 
     private double calculateMST(Node neighbour) {
         Set<City> unvisited = neighbour.getUnvisited();
+        Set<City> seen = new HashSet<>();
         double sum = 0.0f;
         for (City city : unvisited) {
-            sum += neighbour.getNearestDistFromUnvisited(city);
+            seen.add(city);
+            sum += neighbour.getNearestDistFromUnvisited(city, seen);
         }
         return sum;
     }

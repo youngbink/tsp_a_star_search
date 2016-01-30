@@ -16,12 +16,15 @@ public class TravelingSalesManSolver {
     public static void main(String ...args) {
 
         TravelingSalesManSolver solver = new TravelingSalesManSolver();
+
         for (int i = 3; i <= 5; i++) {
             long start = System.currentTimeMillis();
             solver.processFilesInDir(String.valueOf(i));
             long end = System.currentTimeMillis();
-            //System.out.println("Time taken : " + (((end - start) * 1.0) / 1000));
+            System.out.println("Time taken : " + (((end - start) * 1.0) / 1000));
         }
+
+        //solver.processFile("5/instance_1.txt");
     }
 
     public void processFilesInDir(final String dirName) {
