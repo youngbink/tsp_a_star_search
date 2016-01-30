@@ -17,7 +17,7 @@ public class TravelingSalesManSolver {
 
         TravelingSalesManSolver solver = new TravelingSalesManSolver();
 
-        for (int i = 3; i <= 5; i++) {
+        for (int i = 3; i <= 16; i++) {
             long start = System.currentTimeMillis();
             solver.processFilesInDir(String.valueOf(i));
             long end = System.currentTimeMillis();
@@ -47,7 +47,7 @@ public class TravelingSalesManSolver {
         AtomicInteger numNodes = new AtomicInteger(1);
         Node node = new AStarSearch().run(problem, numNodes);
         //System.out.println("# of Node: " +numNodes);
-        node.printPath();
+        //node.printPath();
         return numNodes.get();
     }
 }
