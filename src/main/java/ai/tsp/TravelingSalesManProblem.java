@@ -78,8 +78,6 @@ public class TravelingSalesManProblem implements SearchProblem {
         Set<City> newUnvisited;
 
         if (unvisited.size() == 0) {
-            //System.out.println(node.getCurrent().getName());
-            //node.printPath();
             newPath = new ArrayList<>(currentPath);
             newPath.add(node.getCurrent());
             newUnvisited = new HashSet<>(unvisited);
@@ -113,39 +111,23 @@ public class TravelingSalesManProblem implements SearchProblem {
 
     private double heuristic(Node neighbour) {
         if (neighbour.getUnvisited().size() == 0) {
-            //System.out.println(" No more visited " + neighbour.getCurrent().getName());
-            //System.out.println();
             if (neighbour.getCurrent() == firstCity) {
                 return 0.0f;
             }
 
             return neighbour.getCurrent().getdMap().get(firstCity);
         } else if (neighbour.getUnvisited().size() == 1) {
-           // System.out.println(" 1 left " + neighbour.getCurrent().getName());
-            //neighbour.printPath();
             List<City> lists = new ArrayList<>(neighbour.getUnvisited());
             City lastCity = lists.get(0);
-            //System.out.println("last city " + lastCity.getName());
             return neighbour.getCurrent().getdMap().get(lastCity) +
                     lastCity.getdMap().get(firstCity);
         }
 
 
-
         double dist1 = neighbour.getNearestDistFromUnvisited(neighbour.getCurrent());
-        /*
-        if (neighbour.getUnvisited().size() == 2 && neighbour.getCurrent().getName().equals("E"))
-            System.out.println("here");
-            */
         double dist2 = calculateMST(neighbour);
         double dist3 = neighbour.getNearestDistFromUnvisited(firstCity);
-        /*
-        if (neighbour.getUnvisited().size() == 2 && neighbour.getCurrent().getName().equals("E")) {
-            //System.out.println(" 2 left " + neighbour.getCurrent().getName());
-            neighbour.printPath();
-            //System.out.println("mst : " + dist2);
-            //System.out.println("h :" + (dist1 + dist2 + dist3));
-        }*/
+
         return dist1 + dist2 + dist3;
     }
 
