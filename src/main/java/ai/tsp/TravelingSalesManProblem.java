@@ -131,9 +131,11 @@ public class TravelingSalesManProblem implements SearchProblem {
 
     private double calculateMST(Node neighbour) {
         Set<City> unvisited = neighbour.getUnvisited();
+        Set<City> seen = new HashSet<>();
         double sum = 0.0f;
         for (City city : unvisited) {
-            sum += neighbour.getNearestDistFromUnvisited(city);
+            seen.add(city);
+            sum += neighbour.getNearestDistFromUnvisited(city, seen);
         }
         return sum;
     }
