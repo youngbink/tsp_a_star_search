@@ -67,13 +67,6 @@ public class Node {
         return unvisited;
     }
 
-    public void printPath(){
-        for (City city : path) {
-            System.out.print(city.getName() + " ");
-        }
-        System.out.println(current.getName());
-    }
-
     public double getNearestDistFromUnvisited(City city) {
         Map<City, Double> map = city.getdMap();
         for (Map.Entry<City, Double> entry : map.entrySet())

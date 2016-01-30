@@ -17,6 +17,7 @@ public class TravelingSalesManProblem implements SearchProblem {
     Node firstState;
     City firstCity;
 
+    // initialize..
     public void initiateProblem(final String fileName) {
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream(fileName);
         BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
@@ -29,7 +30,6 @@ public class TravelingSalesManProblem implements SearchProblem {
             while ((strLine = br.readLine()) != null)   {
                 String[] tokens = strLine.split(" ");
                 if (tokens.length < 3) {
-                   //System.out.println("Invalid tokens.. " + strLine);
                     continue;
                 }
 
@@ -77,9 +77,8 @@ public class TravelingSalesManProblem implements SearchProblem {
 
         Set<City> newUnvisited;
 
+        // no more unvisited.. time to go back to first city
         if (unvisited.size() == 0) {
-            //System.out.println(node.getCurrent().getName());
-            //node.printPath();
             newPath = new ArrayList<>(currentPath);
             newPath.add(node.getCurrent());
             newUnvisited = new HashSet<>(unvisited);
@@ -108,16 +107,18 @@ public class TravelingSalesManProblem implements SearchProblem {
     @Override
     public void calculateF(final Node neighbour, final double tmpGScore) {
         neighbour.setFScore(heuristic(neighbour) + tmpGScore);
-        //neighbour.setFScore(0 + tmpGScore);
     }
 
+    // calculate h(n)
     private double heuristic(Node neighbour) {
+        // special case
         if (neighbour.getUnvisited().size() == 0) {
             if (neighbour.getCurrent() == firstCity) {
                 return 0.0f;
             }
 
             return neighbour.getCurrent().getdMap().get(firstCity);
+            // special case
         } else if (neighbour.getUnvisited().size() == 1) {
             return neighbour.getCurrent().getdMap().get(firstCity);
         }
