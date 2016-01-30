@@ -139,13 +139,13 @@ public class TravelingSalesManProblem implements SearchProblem {
             */
         double dist2 = calculateMST(neighbour);
         double dist3 = neighbour.getNearestDistFromUnvisited(firstCity);
-        /*
-        if (neighbour.getUnvisited().size() == 2 && neighbour.getCurrent().getName().equals("E")) {
-            //System.out.println(" 2 left " + neighbour.getCurrent().getName());
+
+        if (neighbour.getUnvisited().size() == 2) {
+            System.out.println(" 2 left " + neighbour.getCurrent().getName());
             neighbour.printPath();
-            //System.out.println("mst : " + dist2);
-            //System.out.println("h :" + (dist1 + dist2 + dist3));
-        }*/
+            System.out.println("mst : " + dist2);
+            System.out.println("h :" + (dist1 + dist2 + dist3));
+        }
         return dist1 + dist2 + dist3;
     }
 

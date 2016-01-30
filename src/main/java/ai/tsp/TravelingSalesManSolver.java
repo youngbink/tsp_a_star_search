@@ -17,14 +17,15 @@ public class TravelingSalesManSolver {
 
         TravelingSalesManSolver solver = new TravelingSalesManSolver();
 
-        for (int i = 3; i <= 16; i++) {
+
+        for (int i = 1; i <= 16; i++) {
             long start = System.currentTimeMillis();
             solver.processFilesInDir(String.valueOf(i));
             long end = System.currentTimeMillis();
             System.out.println("Time taken : " + (((end - start) * 1.0) / 1000));
         }
 
-        //solver.processFile("5/instance_1.txt");
+        solver.processFile("5/instance_2.txt");
     }
 
     public void processFilesInDir(final String dirName) {
@@ -47,7 +48,7 @@ public class TravelingSalesManSolver {
         AtomicInteger numNodes = new AtomicInteger(1);
         Node node = new AStarSearch().run(problem, numNodes);
         //System.out.println("# of Node: " +numNodes);
-        //node.printPath();
+        node.printPath();
         return numNodes.get();
     }
 }
