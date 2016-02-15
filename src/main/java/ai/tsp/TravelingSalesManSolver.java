@@ -4,6 +4,7 @@ import ai.AStarSearch;
 import ai.Node;
 
 import java.io.File;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -13,21 +14,14 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class TravelingSalesManSolver {
     public static void main(String ...args) {
+
         TravelingSalesManSolver solver = new TravelingSalesManSolver();
-        for (int i = 1; i <= 11; i++) {
+        for (int i = 1; i <= 16; i++) {
+            long start = System.currentTimeMillis();
             solver.processFilesInDir(String.valueOf(i));
+            long end = System.currentTimeMillis();
+            System.out.println("Time taken : " + (((end - start) * 1.0) / 1000));
         }
-
-
-        //solver.processFile("1/instance_1.txt");
-
-        /*
-        if (node != null) {
-            solver.printResult(node);
-            //System.out.println(" " + problem.getInitialState().getName());
-        }
-        */
-
     }
 
     public void processFilesInDir(final String dirName) {
@@ -38,7 +32,6 @@ public class TravelingSalesManSolver {
                 System.err.println("What is directory doing in here? " + fileEntry.getName());
             } else {
                 sum += processFile(dirName + "/" + fileEntry.getName());
-                //fileList.add(fileEntry.getName());
             }
         }
         System.out.println("Total average for dir : " + dirName + ": " + sum / folder.listFiles().length);
@@ -48,10 +41,8 @@ public class TravelingSalesManSolver {
         TravelingSalesManProblem problem = new TravelingSalesManProblem();
         problem.initiateProblem(fileName);
 
-        AtomicInteger numNodes = new AtomicInteger(0);
-        Node node = new AStarSearch().run(problem, numNodes);
-        //System.out.println("# of Node: " +numNodes);
-        //node.printPath();
+        AtomicInteger numNodes = new AtomicInteger(1);
+        new AStarSearch().run(problem, numNodes);
         return numNodes.get();
     }
 }

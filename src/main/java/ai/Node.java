@@ -3,6 +3,7 @@ package ai;
 import ai.tsp.City;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -24,13 +25,6 @@ public class Node {
         this.current = current;
         this.unvisited = unvisited;
         this.path = path;
-        /*
-        System.out.println("Creating node.. ");
-        System.out.println("  current: " + current.getName());
-        System.out.println("  path");
-
-        this.printPath();
-        */
     }
 
     public double getGScore() {
@@ -73,14 +67,31 @@ public class Node {
         return unvisited;
     }
 
+    public double getNearestDistFromUnvisited(City city) {
+        Map<City, Double> map = city.getdMap();
+        for (Map.Entry<City, Double> entry : map.entrySet())
+        {
+            if (unvisited.contains(entry.getKey())) {
+                return entry.getValue();
+            }
+        }
+        return 0.0f;
+    }
+
+    public double getNearestDistFromUnvisited(City city, Set seen) {
+        Map<City, Double> map = city.getdMap();
+        for (Map.Entry<City, Double> entry : map.entrySet())
+        {
+            if (unvisited.contains(entry.getKey()) && !seen.contains(entry.getKey())) {
+                return entry.getValue();
+            }
+        }
+        return 0.0f;
+    }
+
     public List<City> getPath() {
         return path;
     }
 
-    public void printPath(){
-        for (City city: path) {
-            System.out.print(city.getName() + " ");
-        }
-        System.out.println(getCurrent().getName());
-    }
+
 }
